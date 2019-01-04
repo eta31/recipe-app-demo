@@ -15,13 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
-from .views import sample_api#login
-# from django.conf.urls import url, include
+from .views import login
+from rest_framework.documentation import include_docs_urls
+from rest_framework.permissions import AllowAny
+from django.views.generic import RedirectView
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/login', login),
-    path('api/sampleapi', sample_api),
-    path('api/', include('recipe_app.recipe.urls')),
+    path('api/login/', login),
+    path('', include('recipe_app.recipe.urls')),
+    path('docs/', include_docs_urls(title='My Recipe API ',permission_classes=[AllowAny,])),
+    # path('', RedirectView.as_view(url='docs/')),
 ]

@@ -29,6 +29,8 @@ def recipe_list(request):
 
         Example POST request
 
+        Do not forget create category before creating recipe!
+
         {
             "recipe_name": "Ricotta Meatballs",
             "ingredients": "onion, olive oil, garlic, ground beef, cheese, egg",
@@ -43,7 +45,7 @@ def recipe_list(request):
         recipes = Recipe.objects.all()
 
         if len(recipes) == 0:
-            return  Response({'error': 'No data for this criteria'}, status=status.HTTP_404_NOT_FOUND)
+            return  Response({'message': 'No data for this criteria'}, status=status.HTTP_404_NOT_FOUND)
 
         serializer = RecipeSerializer(recipes, many=True)
         return Response(serializer.data)
